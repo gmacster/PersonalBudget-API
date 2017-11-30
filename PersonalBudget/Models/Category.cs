@@ -1,4 +1,4 @@
-﻿namespace PersonalBudget
+﻿namespace PersonalBudget.Models
 {
     public class Category
     {
