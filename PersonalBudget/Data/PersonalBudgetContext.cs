@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using PersonalBudget.Models;
 
 namespace PersonalBudget.Data
@@ -10,13 +11,13 @@ namespace PersonalBudget.Data
         {
         }
 
+        public DbSet<Category> Category { get; set; }
+
+        public DbSet<Transaction> Transaction { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany();
         }
-
-        public DbSet<Category> Category { get; set; }
-
-        public DbSet<Transaction> Transaction { get; set; }
     }
 }
