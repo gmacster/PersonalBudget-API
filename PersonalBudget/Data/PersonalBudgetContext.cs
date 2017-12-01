@@ -12,7 +12,7 @@ namespace PersonalBudget.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany().IsRequired();
+            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany();
         }
 
         public DbSet<Category> Category { get; set; }
