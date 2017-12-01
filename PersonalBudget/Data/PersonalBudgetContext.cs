@@ -5,7 +5,7 @@ namespace PersonalBudget.Data
 {
     public class PersonalBudgetContext : DbContext
     {
-        public PersonalBudgetContext (DbContextOptions<PersonalBudgetContext> options)
+        public PersonalBudgetContext(DbContextOptions<PersonalBudgetContext> options)
             : base(options)
         {
         }

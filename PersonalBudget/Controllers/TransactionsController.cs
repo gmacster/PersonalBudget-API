@@ -52,7 +52,7 @@ namespace PersonalBudget.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             await context.Transaction.AddAsync(transaction);
             await context.SaveChangesAsync();
 
