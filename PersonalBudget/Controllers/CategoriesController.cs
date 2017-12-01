@@ -24,10 +24,16 @@ namespace PersonalBudget.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             var category = await context.Category.SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null) return NotFound();
+            if (category == null)
+            {
+                return NotFound();
+            }
 
             context.Category.Remove(category);
             await context.SaveChangesAsync();
@@ -44,11 +50,17 @@ namespace PersonalBudget.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory([FromRoute] Guid id)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             var category = await context.Category.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (category == null) return NotFound();
+            if (category == null)
+            {
+                return NotFound();
+            }
 
             return Ok(category);
         }
@@ -56,7 +68,10 @@ namespace PersonalBudget.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCategory([FromBody] Category category)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             await context.Category.AddAsync(category);
             await context.SaveChangesAsync();
@@ -67,9 +82,15 @@ namespace PersonalBudget.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory([FromRoute] Guid id, [FromBody] Category category)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            if (id != category.Id) return BadRequest();
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
 
             context.Entry(category).State = EntityState.Modified;
 
@@ -80,7 +101,10 @@ namespace PersonalBudget.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 var found = await context.Category.AnyAsync(e => e.Id == id);
-                if (!found) return NotFound();
+                if (!found)
+                {
+                    return NotFound();
+                }
 
                 throw;
             }

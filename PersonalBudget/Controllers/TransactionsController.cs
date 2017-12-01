@@ -24,10 +24,16 @@ namespace PersonalBudget.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             var transaction = await context.Transaction.SingleOrDefaultAsync(m => m.Id == id);
-            if (transaction == null) return NotFound();
+            if (transaction == null)
+            {
+                return NotFound();
+            }
 
             context.Transaction.Remove(transaction);
             await context.SaveChangesAsync();
@@ -44,10 +50,16 @@ namespace PersonalBudget.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(Guid id)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             var transaction = await context.Transaction.SingleOrDefaultAsync(m => m.Id == id);
-            if (transaction == null) return NotFound();
+            if (transaction == null)
+            {
+                return NotFound();
+            }
 
             return Ok(transaction);
         }
@@ -55,7 +67,10 @@ namespace PersonalBudget.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Transaction transaction)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             await context.Transaction.AddAsync(transaction);
             await context.SaveChangesAsync();
@@ -66,9 +81,15 @@ namespace PersonalBudget.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] Transaction transaction)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            if (id != transaction.Id) return BadRequest();
+            if (id != transaction.Id)
+            {
+                return BadRequest();
+            }
 
             context.Entry(transaction).State = EntityState.Modified;
 
@@ -79,7 +100,10 @@ namespace PersonalBudget.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 var found = await context.Transaction.AnyAsync(m => m.Id == id);
-                if (!found) return NotFound();
+                if (!found)
+                {
+                    return NotFound();
+                }
 
                 throw;
             }
