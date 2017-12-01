@@ -11,8 +11,8 @@ using System;
 namespace PersonalBudget.Migrations
 {
     [DbContext(typeof(PersonalBudgetContext))]
-    [Migration("20171201161526_TransactionCategoryRequired")]
-    partial class TransactionCategoryRequired
+    [Migration("20171201182851_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace PersonalBudget.Migrations
 
             modelBuilder.Entity("PersonalBudget.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -38,8 +38,7 @@ namespace PersonalBudget.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CategoryId")
-                        .IsRequired();
+                    b.Property<Guid?>("CategoryId");
 
                     b.Property<DateTime>("Date");
 
@@ -62,8 +61,7 @@ namespace PersonalBudget.Migrations
                 {
                     b.HasOne("PersonalBudget.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
                 });
 #pragma warning restore 612, 618
         }

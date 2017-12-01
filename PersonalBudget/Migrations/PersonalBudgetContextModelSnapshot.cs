@@ -22,7 +22,7 @@ namespace PersonalBudget.Migrations
 
             modelBuilder.Entity("PersonalBudget.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -37,7 +37,7 @@ namespace PersonalBudget.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<Guid?>("CategoryId");
 
                     b.Property<DateTime>("Date");
 

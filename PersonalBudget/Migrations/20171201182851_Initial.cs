@@ -4,16 +4,28 @@ using System.Collections.Generic;
 
 namespace PersonalBudget.Migrations
 {
-    public partial class AddTransactionModel : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Transaction",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<Guid>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Inflow = table.Column<decimal>(nullable: false),
@@ -41,6 +53,9 @@ namespace PersonalBudget.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Transaction");
+
+            migrationBuilder.DropTable(
+                name: "Category");
         }
     }
 }

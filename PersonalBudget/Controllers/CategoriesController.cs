@@ -1,5 +1,6 @@
 ﻿namespace PersonalBudget.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -19,16 +20,14 @@
             this.context = context;
         }
 
-        // GET: api/Categories
         [HttpGet]
         public IEnumerable<Category> GetCategory()
         {
             return context.Category;
         }
 
-        // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory([FromRoute] int id)
+        public async Task<IActionResult> GetCategory([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +45,7 @@
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
+        public async Task<IActionResult> PutCategory([FromRoute] Guid id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -66,7 +65,8 @@
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                var found = await context.Category.AnyAsync(e => e.Id == id);
+                if (!found)
                 {
                     return NotFound();
                 }
@@ -85,14 +85,14 @@
                 return BadRequest(ModelState);
             }
 
-            context.Category.Add(category);
+            await context.Category.AddAsync(category);
             await context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -109,11 +109,6 @@
             await context.SaveChangesAsync();
 
             return Ok(category);
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return context.Category.Any(e => e.Id == id);
         }
     }
 }
