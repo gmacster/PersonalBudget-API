@@ -88,7 +88,7 @@
             context.Category.Add(category);
             await context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
         }
 
         [HttpDelete("{id}")]
