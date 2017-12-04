@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using PersonalBudget.Data;
 
 namespace PersonalBudget
 {
@@ -12,12 +15,7 @@ namespace PersonalBudget
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
-        }
+        private IConfiguration Configuration { get; }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -27,6 +25,14 @@ namespace PersonalBudget
             }
 
             app.UseMvc();
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+
+            services.AddDbContext<PersonalBudgetContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")));
         }
     }
 }
