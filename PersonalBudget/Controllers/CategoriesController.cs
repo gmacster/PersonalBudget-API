@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using PersonalBudget.Data;
+using PersonalBudget.DataAccessLayer;
 using PersonalBudget.Models;
 
 namespace PersonalBudget.Controllers
