@@ -13,13 +13,13 @@ namespace PersonalBudget.Data
 
         public DbSet<Category> Category { get; set; }
 
-        public DbSet<Transaction> Transaction { get; set; }
-
         public DbSet<MasterCategory> MasterCategory { get; set; }
+
+        public DbSet<Transaction> Transaction { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany();
+            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany().HasForeignKey(t => t.CategoryId);
             modelBuilder.Entity<Category>()
                 .HasOne(c => c.MasterCategory)
                 .WithMany(mc => mc.Categories)

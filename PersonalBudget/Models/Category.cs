@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PersonalBudget.Models
 {
@@ -13,9 +14,9 @@ namespace PersonalBudget.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the category name.
+        /// Gets or sets the master category.
         /// </summary>
-        public string Name { get; set; }
+        public MasterCategory MasterCategory { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the related master category.
@@ -23,8 +24,13 @@ namespace PersonalBudget.Models
         public Guid MasterCategoryId { get; set; }
 
         /// <summary>
-        /// Gets or sets the master category.
+        /// Gets or sets the category name.
         /// </summary>
-        public MasterCategory MasterCategory { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of <see cref="Transaction" />s that belong to this category.
+        /// </summary>
+        public List<Transaction> Transactions { get; set; }
     }
 }

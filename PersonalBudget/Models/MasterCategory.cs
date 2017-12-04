@@ -9,6 +9,11 @@ namespace PersonalBudget.Models
     public sealed class MasterCategory
     {
         /// <summary>
+        /// Gets or sets the child categories.
+        /// </summary>
+        public IEnumerable<Category> Categories { get; set; }
+
+        /// <summary>
         /// Gets or sets the master category's ID.
         /// </summary>
         public Guid Id { get; set; }
@@ -17,10 +22,5 @@ namespace PersonalBudget.Models
         /// Gets or sets the master category name.
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the child categories.
-        /// </summary>
-        public IEnumerable<Category> Categories { get; set; }
     }
 }
