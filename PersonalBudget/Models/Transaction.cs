@@ -13,6 +13,11 @@ namespace PersonalBudget.Models
         public Category Category { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of the transaction's related category.
+        /// </summary>
+        public Guid CategoryId { get; set; }
+
+        /// <summary>
         /// Gets or sets the date on which the transaction occurred.
         /// </summary>
         public DateTime Date { get; set; }
