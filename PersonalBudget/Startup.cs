@@ -33,7 +33,8 @@ namespace PersonalBudget
             services.AddMvc();
 
             services.AddDbContext<PersonalBudgetContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")));
+                    options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")))
+                .AddUnitOfWork<PersonalBudgetContext>();
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
         }

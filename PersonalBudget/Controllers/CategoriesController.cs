@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-using PersonalBudget.DataAccessLayer;
 using PersonalBudget.Models;
 
 namespace PersonalBudget.Controllers
@@ -13,11 +12,11 @@ namespace PersonalBudget.Controllers
     [Route("api/Categories")]
     public class CategoriesController : Controller
     {
-        private readonly ICategoryRepository categoryRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CategoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(IUnitOfWork unitOfWork)
         {
-            this.categoryRepository = categoryRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpDelete("{id}")]
@@ -28,20 +27,23 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (await categoryRepository.GetByIdAsync(id) == null)
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            
+            if (await categoryRepository.FindAsync(id) == null)
             {
                 return NotFound();
             }
 
-            await categoryRepository.DeleteAsync(id);
-            await categoryRepository.SaveAsync();
+            categoryRepository.Delete(id);
+            await unitOfWork.SaveChangesAsync();
+
             return NoContent();
         }
 
         [HttpGet]
-        public IEnumerable<Category> Get()
+        public async Task<IPagedList<Category>> Get()
         {
-            return categoryRepository.GetCategories();
+            return await unitOfWork.GetRepository<Category>().GetPagedListAsync();
         }
 
         [HttpGet("{id}")]
@@ -52,7 +54,8 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            var category = await categoryRepository.GetByIdAsync(id);
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            var category = await categoryRepository.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -69,8 +72,9 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            await categoryRepository.AddAsync(category);
-            await categoryRepository.SaveAsync();
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            await categoryRepository.InsertAsync(category);
+            await unitOfWork.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
         }
@@ -88,9 +92,10 @@ namespace PersonalBudget.Controllers
                 return BadRequest();
             }
 
+            var categoryRepository = unitOfWork.GetRepository<Category>();
             categoryRepository.Update(category);
-            await categoryRepository.SaveAsync();
-            
+            await unitOfWork.SaveChangesAsync();
+
             return NoContent();
         }
     }
