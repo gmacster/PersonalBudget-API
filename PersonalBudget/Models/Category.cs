@@ -16,5 +16,15 @@ namespace PersonalBudget.Models
         /// Gets or sets the category name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ID of the related master category.
+        /// </summary>
+        public Guid MasterCategoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the master category.
+        /// </summary>
+        public MasterCategory MasterCategory { get; set; }
     }
 }
