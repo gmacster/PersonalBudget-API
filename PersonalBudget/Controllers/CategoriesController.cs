@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using PersonalBudget.DataAccessLayer;
 using PersonalBudget.Models;
@@ -14,49 +13,46 @@ namespace PersonalBudget.Controllers
     [Route("api/Categories")]
     public class CategoriesController : Controller
     {
-        private readonly PersonalBudgetContext context;
+        private readonly ICategoryRepository categoryRepository;
 
-        public CategoriesController(PersonalBudgetContext context)
+        public CategoriesController(ICategoryRepository categoryRepository)
         {
-            this.context = context;
+            this.categoryRepository = categoryRepository;
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var category = await context.Category.SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (await categoryRepository.GetByIdAsync(id) == null)
             {
                 return NotFound();
             }
 
-            context.Category.Remove(category);
-            await context.SaveChangesAsync();
-
-            return Ok(category);
+            await categoryRepository.DeleteAsync(id);
+            await categoryRepository.SaveAsync();
+            return NoContent();
         }
 
         [HttpGet]
-        public IEnumerable<Category> GetCategory()
+        public IEnumerable<Category> Get()
         {
-            return context.Category;
+            return categoryRepository.GetCategories();
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var category = await context.Category.SingleOrDefaultAsync(m => m.Id == id);
-
+            var category = await categoryRepository.GetByIdAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -73,10 +69,10 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            await context.Category.AddAsync(category);
-            await context.SaveChangesAsync();
+            await categoryRepository.AddAsync(category);
+            await categoryRepository.SaveAsync();
 
-            return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
+            return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
         }
 
         [HttpPut("{id}")]
@@ -92,23 +88,9 @@ namespace PersonalBudget.Controllers
                 return BadRequest();
             }
 
-            context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var found = await context.Category.AnyAsync(e => e.Id == id);
-                if (!found)
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
-
+            categoryRepository.Update(category);
+            await categoryRepository.SaveAsync();
+            
             return NoContent();
         }
     }

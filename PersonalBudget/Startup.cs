@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using PersonalBudget.DataAccessLayer;
+using PersonalBudget.DataAccessLayer.Repositories;
 
 namespace PersonalBudget
 {
@@ -33,6 +34,8 @@ namespace PersonalBudget
 
             services.AddDbContext<PersonalBudgetContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")));
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
     }
 }
