@@ -8,6 +8,16 @@ namespace PersonalBudget.Models
     public class Transaction
     {
         /// <summary>
+        /// Gets or sets the <see cref="Account" /> for the transaction.
+        /// </summary>
+        public Account Account { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ID of the transaction's related <see cref="Account" />.
+        /// </summary>
+        public Guid AccountId { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="Category" /> for the transaction.
         /// </summary>
         public Category Category { get; set; }
