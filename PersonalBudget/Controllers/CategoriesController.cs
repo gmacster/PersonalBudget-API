@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using PersonalBudget.Data;
 using PersonalBudget.Models;
 
 namespace PersonalBudget.Controllers
@@ -14,49 +12,50 @@ namespace PersonalBudget.Controllers
     [Route("api/Categories")]
     public class CategoriesController : Controller
     {
-        private readonly PersonalBudgetContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CategoriesController(PersonalBudgetContext context)
+        public CategoriesController(IUnitOfWork unitOfWork)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var category = await context.Category.SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            
+            if (await categoryRepository.FindAsync(id) == null)
             {
                 return NotFound();
             }
 
-            context.Category.Remove(category);
-            await context.SaveChangesAsync();
+            categoryRepository.Delete(id);
+            await unitOfWork.SaveChangesAsync();
 
-            return Ok(category);
+            return NoContent();
         }
 
         [HttpGet]
-        public IEnumerable<Category> GetCategory()
+        public async Task<IPagedList<Category>> Get()
         {
-            return context.Category;
+            return await unitOfWork.GetRepository<Category>().GetPagedListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var category = await context.Category.SingleOrDefaultAsync(m => m.Id == id);
-
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            var category = await categoryRepository.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -66,21 +65,22 @@ namespace PersonalBudget.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        public async Task<IActionResult> Post([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await context.Category.AddAsync(category);
-            await context.SaveChangesAsync();
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            await categoryRepository.InsertAsync(category);
+            await unitOfWork.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
+            return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory([FromRoute] Guid id, [FromBody] Category category)
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -92,22 +92,9 @@ namespace PersonalBudget.Controllers
                 return BadRequest();
             }
 
-            context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var found = await context.Category.AnyAsync(e => e.Id == id);
-                if (!found)
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
+            var categoryRepository = unitOfWork.GetRepository<Category>();
+            categoryRepository.Update(category);
+            await unitOfWork.SaveChangesAsync();
 
             return NoContent();
         }
