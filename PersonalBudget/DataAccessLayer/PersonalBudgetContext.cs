@@ -13,7 +13,9 @@ namespace PersonalBudget.DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany(c => c.Transactions).HasForeignKey(t => t.CategoryId);
+            var transactionEntity = modelBuilder.Entity<Transaction>();
+            transactionEntity.HasOne(t => t.Category).WithMany(c => c.Transactions).HasForeignKey(t => t.CategoryId);
+            transactionEntity.HasOne(t => t.Account).WithMany(a => a.Transactions).HasForeignKey(t => t.AccountId).IsRequired();
             modelBuilder.Entity<Category>()
                 .HasOne(c => c.MasterCategory)
                 .WithMany(mc => mc.Categories)
