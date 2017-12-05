@@ -13,7 +13,7 @@ namespace PersonalBudget.DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany().HasForeignKey(t => t.CategoryId);
+            modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany(c => c.Transactions).HasForeignKey(t => t.CategoryId);
             modelBuilder.Entity<Category>()
                 .HasOne(c => c.MasterCategory)
                 .WithMany(mc => mc.Categories)
