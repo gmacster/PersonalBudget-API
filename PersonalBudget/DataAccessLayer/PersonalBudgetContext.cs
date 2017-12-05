@@ -11,12 +11,6 @@ namespace PersonalBudget.DataAccessLayer
         {
         }
 
-        public DbSet<Category> Category { get; set; }
-
-        public DbSet<MasterCategory> MasterCategory { get; set; }
-
-        public DbSet<Transaction> Transaction { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Transaction>().HasOne(t => t.Category).WithMany().HasForeignKey(t => t.CategoryId);
