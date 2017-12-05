@@ -65,7 +65,7 @@ namespace PersonalBudget.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        public async Task<IActionResult> Post([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace PersonalBudget.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory([FromRoute] Guid id, [FromBody] Category category)
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {

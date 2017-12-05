@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using PersonalBudget.DataAccessLayer;
 using PersonalBudget.Models;
 
 namespace PersonalBudget.Controllers
@@ -14,11 +12,11 @@ namespace PersonalBudget.Controllers
     [Route("api/Transactions")]
     public class TransactionsController : Controller
     {
-        private readonly PersonalBudgetContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public TransactionsController(PersonalBudgetContext context)
+        public TransactionsController(IUnitOfWork unitOfWork)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpDelete("{id}")]
@@ -29,22 +27,23 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            var transaction = await context.Transaction.SingleOrDefaultAsync(m => m.Id == id);
+            var transactionRepository = unitOfWork.GetRepository<Transaction>();
+            var transaction = await transactionRepository.FindAsync(id);
             if (transaction == null)
             {
                 return NotFound();
             }
 
-            context.Transaction.Remove(transaction);
-            await context.SaveChangesAsync();
+            transactionRepository.Delete(transaction);
+            await unitOfWork.SaveChangesAsync();
 
             return Ok(transaction);
         }
 
         [HttpGet]
-        public IEnumerable<Transaction> Get()
+        public async Task<IPagedList<Transaction>> Get()
         {
-            return context.Transaction;
+            return await unitOfWork.GetRepository<Transaction>().GetPagedListAsync();
         }
 
         [HttpGet("{id}", Name = "Get")]
@@ -55,7 +54,8 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            var transaction = await context.Transaction.SingleOrDefaultAsync(m => m.Id == id);
+            var transactionRepository = unitOfWork.GetRepository<Transaction>();
+            var transaction = await transactionRepository.FindAsync(id);
             if (transaction == null)
             {
                 return NotFound();
@@ -72,8 +72,9 @@ namespace PersonalBudget.Controllers
                 return BadRequest(ModelState);
             }
 
-            await context.Transaction.AddAsync(transaction);
-            await context.SaveChangesAsync();
+            var transactionRepository = unitOfWork.GetRepository<Transaction>();
+            await transactionRepository.InsertAsync(transaction);
+            await unitOfWork.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Post), new { id = transaction.Id }, transaction);
         }
@@ -91,22 +92,9 @@ namespace PersonalBudget.Controllers
                 return BadRequest();
             }
 
-            context.Entry(transaction).State = EntityState.Modified;
-
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var found = await context.Transaction.AnyAsync(m => m.Id == id);
-                if (!found)
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
+            var transactionRepository = unitOfWork.GetRepository<Transaction>();
+            transactionRepository.Update(transaction);
+            await unitOfWork.SaveChangesAsync();
 
             return NoContent();
         }
