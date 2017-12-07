@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using PersonalBudget.DataAccessLayer;
+using PersonalBudget.Utilities;
 
 namespace PersonalBudget
 {
@@ -34,6 +35,8 @@ namespace PersonalBudget
             services.AddDbContext<PersonalBudgetContext>(
                     options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")))
                 .AddUnitOfWork<PersonalBudgetContext>();
+
+            services.AddTransient<IImporter, YNABCsvImporter>();
         }
     }
 }
