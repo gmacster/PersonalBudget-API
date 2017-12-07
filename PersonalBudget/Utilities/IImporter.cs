@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using PersonalBudget.Models;
 
 namespace PersonalBudget.Utilities
 {
     public interface IImporter
     {
-        Task Import(string fileName);
+        Task<IEnumerable<Transaction>> ReadTransactionsAsync(string fileName);
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget", "PersonalBudget\PersonalBudget.csproj", "{3EAC269D-60AE-4BCC-B8B3-054A8C538D42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalBudget.Models", "PersonalBudget.Models\PersonalBudget.Models.csproj", "{3D369680-3AFD-401E-B6FD-E4B10EC4021D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget.Models", "PersonalBudget.Models\PersonalBudget.Models.csproj", "{3D369680-3AFD-401E-B6FD-E4B10EC4021D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

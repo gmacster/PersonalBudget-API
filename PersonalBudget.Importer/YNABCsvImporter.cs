@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
+using System.Transactions;
 
 using CsvHelper;
+
+using Microsoft.EntityFrameworkCore;
 
 using PersonalBudget.Models;
 
@@ -12,7 +15,14 @@ namespace PersonalBudget.Utilities
 {
     public sealed class YNABCsvImporter : IImporter
     {
-        public async Task<IEnumerable<Transaction>> ReadTransactionsAsync(string fileName)
+        private readonly IUnitOfWork unitOfWork;
+
+        public YNABCsvImporter(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
+
+        public async Task Import(string fileName)
         {
             var masterCategoryCache = new Dictionary<string, MasterCategory>();
             var categoryCache = new Dictionary<string, Category>();
@@ -62,19 +72,21 @@ namespace PersonalBudget.Utilities
 
                     transactions.Add(
                         new Transaction
-                        {
-                            Account = account,
-                            Category = category,
-                            Date = csv.GetField<DateTime>("Date"),
-                            Description = csv.GetField<string>("Memo"),
-                            Inflow = inflow,
-                            Outflow = outflow,
-                            Payee = csv.GetField<string>("Payee")
-                        });
+                            {
+                                Account = account,
+                                Category = category,
+                                Date = csv.GetField<DateTime>("Date"),
+                                Description = csv.GetField<string>("Memo"),
+                                Inflow = inflow,
+                                Outflow = outflow,
+                                Payee = csv.GetField<string>("Payee")
+                            });
                 }
             }
 
-            return transactions;
+            var transactionRepository = unitOfWork.GetRepository<Transaction>();
+            await transactionRepository.InsertAsync(transactions);
+            //await unitOfWork.SaveChangesAsync();
         }
     }
 }
