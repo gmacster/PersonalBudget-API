@@ -31,9 +31,7 @@ namespace PersonalBudget
         {
             services.AddMvc();
 
-            services.AddDbContext<PersonalBudgetContext>(
-                    options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")))
-                .AddUnitOfWork<PersonalBudgetContext>();
+            services.AddDbContext<PersonalBudgetContext>().AddUnitOfWork<PersonalBudgetContext>();
         }
     }
 }

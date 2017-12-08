@@ -2,7 +2,7 @@
   "profiles": {
     "PersonalBudget.YNABImporter": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Dev\\Git\\PersonalBudget\\Main Budget (2) as of 2017-03-02 845 PM-Register.csv\""
+      "commandLineArgs": "seed.csv"
     }
   }
 }
