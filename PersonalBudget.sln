@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget", "PersonalB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget.Models", "PersonalBudget.Models\PersonalBudget.Models.csproj", "{3D369680-3AFD-401E-B6FD-E4B10EC4021D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalBudget.Data", "PersonalBudget.Data\PersonalBudget.Data.csproj", "{F695C25B-D63F-4614-B670-BC9093923AFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3D369680-3AFD-401E-B6FD-E4B10EC4021D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D369680-3AFD-401E-B6FD-E4B10EC4021D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D369680-3AFD-401E-B6FD-E4B10EC4021D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F695C25B-D63F-4614-B670-BC9093923AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F695C25B-D63F-4614-B670-BC9093923AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F695C25B-D63F-4614-B670-BC9093923AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F695C25B-D63F-4614-B670-BC9093923AFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

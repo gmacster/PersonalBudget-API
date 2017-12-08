@@ -2,7 +2,7 @@
 
 using PersonalBudget.Models;
 
-namespace PersonalBudget.DataAccessLayer
+namespace PersonalBudget.Data.DataAccessLayer
 {
     public class PersonalBudgetContext : DbContext
     {

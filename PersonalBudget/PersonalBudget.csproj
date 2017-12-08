@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PersonalBudget.Models\PersonalBudget.Models.csproj" />
+    <ProjectReference Include="..\PersonalBudget.Data\PersonalBudget.Data.csproj" />
   </ItemGroup>
 
 </Project>

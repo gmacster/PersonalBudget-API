@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using PersonalBudget.DataAccessLayer;
+using PersonalBudget.Data.DataAccessLayer;
 using PersonalBudget.Utilities;
 
 namespace PersonalBudget
