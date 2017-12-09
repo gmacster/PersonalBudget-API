@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace PersonalBudget.Data.DataAccessLayer
 {
-    public sealed class PersonalBudgetContextFactory : IDesignTimeDbContextFactory<PersonalBudgetContext>
+    public sealed class PersonalBudgetContextFactory : IDesignTimeDbContextFactory<PersonalBudgetDbContext>
     {
         public PersonalBudgetContextFactory()
         {
@@ -23,15 +23,15 @@ namespace PersonalBudget.Data.DataAccessLayer
 
         private IConfiguration Configuration { get; }
 
-        public PersonalBudgetContext CreateDbContext(string[] args)
+        public PersonalBudgetDbContext CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<PersonalBudgetContext>();
+            var builder = new DbContextOptionsBuilder<PersonalBudgetDbContext>();
 
             var connectionString = this.Configuration.GetConnectionString("PersonalBudgetContext");
 
             builder.UseSqlServer(connectionString);
 
-            return new PersonalBudgetContext(builder.Options);
+            return new PersonalBudgetDbContext(builder.Options);
         }
     }
 }

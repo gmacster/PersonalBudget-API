@@ -11,7 +11,7 @@ using PersonalBudget.Data.DataAccessLayer;
 
 namespace PersonalBudget.Data.Migrations
 {
-    [DbContext(typeof(PersonalBudgetContext))]
+    [DbContext(typeof(PersonalBudgetDbContext))]
     [Migration("20171205161806_AddAccountModel")]
     partial class AddAccountModel
     {

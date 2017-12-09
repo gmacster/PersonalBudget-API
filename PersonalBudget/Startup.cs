@@ -31,7 +31,7 @@ namespace PersonalBudget
         {
             services.AddMvc();
 
-            services.AddPersonalBudgetContext().AddUnitOfWork<PersonalBudgetContext>();
+            services.AddPersonalBudgetContext().AddUnitOfWork<PersonalBudgetDbContext>();
         }
     }
 }

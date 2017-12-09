@@ -11,7 +11,7 @@ using PersonalBudget.Data.DataAccessLayer;
 
 namespace PersonalBudget.Data.Migrations
 {
-    [DbContext(typeof(PersonalBudgetContext))]
+    [DbContext(typeof(PersonalBudgetDbContext))]
     [Migration("20171204164140_AddMasterCategory")]
     partial class AddMasterCategory
     {

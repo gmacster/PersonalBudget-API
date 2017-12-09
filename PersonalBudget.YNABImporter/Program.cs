@@ -45,7 +45,7 @@ namespace PersonalBudget.YNABImporter
         {
             return new ServiceCollection()
                 .AddPersonalBudgetContext()
-                .AddUnitOfWork<PersonalBudgetContext>()
+                .AddUnitOfWork<PersonalBudgetDbContext>()
                 .BuildServiceProvider();
         }
     }

@@ -10,7 +10,7 @@ using PersonalBudget.Data.DataAccessLayer;
 
 namespace PersonalBudget.Data.Migrations
 {
-    [DbContext(typeof(PersonalBudgetContext))]
+    [DbContext(typeof(PersonalBudgetDbContext))]
     partial class PersonalBudgetContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

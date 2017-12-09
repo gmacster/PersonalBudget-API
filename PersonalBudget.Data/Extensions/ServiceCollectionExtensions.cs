@@ -14,14 +14,14 @@ namespace PersonalBudget.Data.Extensions
                 throw new ArgumentNullException(nameof(services));
             }
 
-            return services.AddTransient<IDesignTimeDbContextFactory<PersonalBudgetContext>, PersonalBudgetContextFactory>()
+            return services.AddTransient<IDesignTimeDbContextFactory<PersonalBudgetDbContext>, PersonalBudgetContextFactory>()
                 .AddTransient(
                     provider =>
                     {
-                        var factory = provider.GetService<IDesignTimeDbContextFactory<PersonalBudgetContext>>();
+                        var factory = provider.GetService<IDesignTimeDbContextFactory<PersonalBudgetDbContext>>();
                         return factory.CreateDbContext(new string[] { });
                     })
-                .AddDbContext<PersonalBudgetContext>();
+                .AddDbContext<PersonalBudgetDbContext>();
         }
     }
 }

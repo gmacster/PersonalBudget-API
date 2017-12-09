@@ -4,9 +4,9 @@ using PersonalBudget.Models;
 
 namespace PersonalBudget.Data.DataAccessLayer
 {
-    public class PersonalBudgetContext : DbContext
+    public class PersonalBudgetDbContext : DbContext
     {
-        public PersonalBudgetContext(DbContextOptions<PersonalBudgetContext> options)
+        public PersonalBudgetDbContext(DbContextOptions<PersonalBudgetDbContext> options)
             : base(options)
         {
         }
