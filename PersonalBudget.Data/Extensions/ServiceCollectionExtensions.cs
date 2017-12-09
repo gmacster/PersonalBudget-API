@@ -14,7 +14,7 @@ namespace PersonalBudget.Data.Extensions
                 throw new ArgumentNullException(nameof(services));
             }
 
-            return services.AddTransient<IDesignTimeDbContextFactory<PersonalBudgetDbContext>, PersonalBudgetContextFactory>()
+            return services.AddTransient<IDesignTimeDbContextFactory<PersonalBudgetDbContext>, PersonalBudgetDbContextFactory>()
                 .AddTransient(
                     provider =>
                     {

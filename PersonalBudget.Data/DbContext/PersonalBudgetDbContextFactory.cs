@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace PersonalBudget.Data.DataAccessLayer
 {
-    public sealed class PersonalBudgetContextFactory : IDesignTimeDbContextFactory<PersonalBudgetDbContext>
+    public sealed class PersonalBudgetDbContextFactory : IDesignTimeDbContextFactory<PersonalBudgetDbContext>
     {
-        public PersonalBudgetContextFactory()
+        public PersonalBudgetDbContextFactory()
         {
             this.Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -16,7 +16,7 @@ namespace PersonalBudget.Data.DataAccessLayer
                 .Build();
         }
 
-        public PersonalBudgetContextFactory(IConfiguration configuration)
+        public PersonalBudgetDbContextFactory(IConfiguration configuration)
         {
             this.Configuration = configuration;
         }
