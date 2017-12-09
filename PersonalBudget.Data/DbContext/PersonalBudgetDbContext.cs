@@ -21,6 +21,8 @@ namespace PersonalBudget.Data.DataAccessLayer
                 .WithMany(mc => mc.Categories)
                 .HasForeignKey(c => c.MasterCategoryId)
                 .IsRequired();
+
+            modelBuilder.Entity<BudgetTarget>().HasOne(t => t.BudgetPeriod).WithMany(p => p.BudgetTargets).HasForeignKey(t => t.BudgetPeriodId).IsRequired();
         }
     }
 }
