@@ -8,16 +8,26 @@ namespace PersonalBudget.Data.DataAccessLayer
 {
     public sealed class PersonalBudgetContextFactory : IDesignTimeDbContextFactory<PersonalBudgetContext>
     {
-        public PersonalBudgetContext CreateDbContext(string[] args)
+        public PersonalBudgetContextFactory()
         {
-            var configuration = new ConfigurationBuilder()
+            this.Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
+        }
 
+        public PersonalBudgetContextFactory(IConfiguration configuration)
+        {
+            this.Configuration = configuration;
+        }
+
+        private IConfiguration Configuration { get; }
+
+        public PersonalBudgetContext CreateDbContext(string[] args)
+        {
             var builder = new DbContextOptionsBuilder<PersonalBudgetContext>();
 
-            var connectionString = configuration.GetConnectionString("PersonalBudgetContext");
+            var connectionString = this.Configuration.GetConnectionString("PersonalBudgetContext");
 
             builder.UseSqlServer(connectionString);
 

@@ -2,11 +2,10 @@
 using System.IO;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using PersonalBudget.Data.DataAccessLayer;
+using PersonalBudget.Data.Extensions;
 using PersonalBudget.Models;
 using PersonalBudget.Utilities;
 
@@ -45,14 +44,7 @@ namespace PersonalBudget.YNABImporter
         private static IServiceProvider ComposeServiceProvider()
         {
             return new ServiceCollection()
-                .AddTransient<IDesignTimeDbContextFactory<PersonalBudgetContext>, PersonalBudgetContextFactory>()
-                .AddTransient<PersonalBudgetContext, PersonalBudgetContext>(
-                    provider =>
-                    {
-                        var factory = provider.GetService<IDesignTimeDbContextFactory<PersonalBudgetContext>>();
-                        return factory.CreateDbContext(new string[] { });
-                    })
-                .AddDbContext<PersonalBudgetContext>()
+                .AddPersonalBudgetContext()
                 .AddUnitOfWork<PersonalBudgetContext>()
                 .BuildServiceProvider();
         }
