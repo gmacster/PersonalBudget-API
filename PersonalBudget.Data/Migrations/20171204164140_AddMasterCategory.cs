@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
-namespace PersonalBudget.Migrations
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace PersonalBudget.Data.Migrations
 {
     public partial class AddMasterCategory : Migration
     {

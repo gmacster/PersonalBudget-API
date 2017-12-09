@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PersonalBudget.YNABImporter": {
+      "commandName": "Project",
+      "commandLineArgs": "seed.csv"
+    }
+  }
+}

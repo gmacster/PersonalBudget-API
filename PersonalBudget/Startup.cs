@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using PersonalBudget.DataAccessLayer;
+using PersonalBudget.Data.DataAccessLayer;
+using PersonalBudget.Data.Extensions;
 
 namespace PersonalBudget
 {
@@ -31,9 +31,7 @@ namespace PersonalBudget
         {
             services.AddMvc();
 
-            services.AddDbContext<PersonalBudgetContext>(
-                    options => options.UseSqlServer(Configuration.GetConnectionString("PersonalBudgetContext")))
-                .AddUnitOfWork<PersonalBudgetContext>();
+            services.AddPersonalBudgetContext().AddUnitOfWork<PersonalBudgetDbContext>();
         }
     }
 }
