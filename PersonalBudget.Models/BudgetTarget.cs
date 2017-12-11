@@ -1,8 +1,10 @@
 ﻿using System;
 
+using PersonalBudget.Models.Interfaces;
+
 namespace PersonalBudget.Models
 {
-    public sealed class BudgetTarget
+    public sealed class BudgetTarget : IEntity
     {
         public Guid Id { get; set; }
 

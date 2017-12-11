@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using PersonalBudget.Models.Interfaces;
+
 namespace PersonalBudget.Models
 {
-    public sealed class BudgetPeriod
+    public sealed class BudgetPeriod : IEntity
     {
         public Guid Id { get; set; }
 
