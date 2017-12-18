@@ -1,11 +1,13 @@
 ﻿using System;
 
+using PersonalBudget.Models.Interfaces;
+
 namespace PersonalBudget.Models
 {
     /// <summary>
     /// Represents a single transaction.
     /// </summary>
-    public class Transaction
+    public class Transaction : IEntity
     {
         /// <summary>
         /// Gets or sets the <see cref="Account" /> for the transaction.

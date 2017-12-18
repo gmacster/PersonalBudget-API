@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using PersonalBudget.Models.Interfaces;
+
 namespace PersonalBudget.Models
 {
     /// <summary>
     /// Represents a categorical grouping for categories.
     /// </summary>
-    public sealed class MasterCategory
+    public sealed class MasterCategory : IEntity
     {
         /// <summary>
         /// Gets or sets the child categories.

@@ -6,10 +6,10 @@ using PersonalBudget.Models;
 
 namespace PersonalBudget.Controllers
 {
-    [Route("api/Accounts")]
-    public class AccountsController : EntityController<Account>
+    [Route("api/BudgetTargets")]
+    public class BudgetTargetsController : EntityController<BudgetTarget>
     {
-        public AccountsController(IUnitOfWork unitOfWork)
+        public BudgetTargetsController(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }
