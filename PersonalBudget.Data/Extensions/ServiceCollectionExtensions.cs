@@ -7,7 +7,7 @@ namespace PersonalBudget.Data.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddPersonalBudgetContext(this IServiceCollection services)
+        public static IServiceCollection AddPersonalBudgetDbContext(this IServiceCollection services)
         {
             if (services == null)
             {

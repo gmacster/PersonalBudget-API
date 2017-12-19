@@ -11,9 +11,10 @@ using System;
 namespace PersonalBudget.Data.Migrations
 {
     [DbContext(typeof(PersonalBudgetDbContext))]
-    partial class PersonalBudgetContextModelSnapshot : ModelSnapshot
+    [Migration("20171209012628_AddBudgetPeriodAndBudgetTarget")]
+    partial class AddBudgetPeriodAndBudgetTarget
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

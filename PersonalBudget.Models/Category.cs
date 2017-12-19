@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using PersonalBudget.Models.Interfaces;
+
 namespace PersonalBudget.Models
 {
     /// <summary>
     /// Represents a categorical grouping for transactions.
     /// </summary>
-    public sealed class Category
+    public sealed class Category : IEntity
     {
         /// <summary>
         /// Gets or sets the category's ID.

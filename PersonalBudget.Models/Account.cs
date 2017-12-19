@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using PersonalBudget.Models.Interfaces;
+
 namespace PersonalBudget.Models
 {
     /// <summary>
     /// Represents an account (credit card, savings, checking, etc.)
     /// </summary>
-    public sealed class Account
+    public sealed class Account : IEntity
     {
         /// <summary>
         /// Gets or sets the account's primary key.
