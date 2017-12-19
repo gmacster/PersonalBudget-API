@@ -14,26 +14,26 @@ namespace PersonalBudget.Tests
 {
     public class EntityControllerTests
     {
-        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+        private readonly Mock<IUnitOfWork> unitOfWorkMock;
 
-        private readonly Mock<IRepository<MockEntity>> _repositoryMock;
+        private readonly Mock<IRepository<MockEntity>> repositoryMock;
 
         public EntityControllerTests()
         {
-            _repositoryMock = new Mock<IRepository<MockEntity>>();
+            repositoryMock = new Mock<IRepository<MockEntity>>();
 
-            _unitOfWorkMock = new Mock<IUnitOfWork>();
-            _unitOfWorkMock.Setup(m => m.GetRepository<MockEntity>()).Returns(_repositoryMock.Object);
+            unitOfWorkMock = new Mock<IUnitOfWork>();
+            unitOfWorkMock.Setup(m => m.GetRepository<MockEntity>()).Returns(repositoryMock.Object);
         }
 
         [Fact]
         public async Task GetAndDelete_WithNoMatch_ReturnsNotFoundResult()
         {
             // Arrange
-            _repositoryMock.Setup(r => r.FindAsync(It.IsAny<object[]>())).ReturnsAsync(default(MockEntity));
+            repositoryMock.Setup(r => r.FindAsync(It.IsAny<object[]>())).ReturnsAsync(default(MockEntity));
 
             // Act/Assert
-            var controller = new EntityController<MockEntity>(_unitOfWorkMock.Object);
+            var controller = new EntityController<MockEntity>(unitOfWorkMock.Object);
             Assert.IsAssignableFrom<NotFoundResult>(await controller.Get(Guid.Empty));
             Assert.IsAssignableFrom<NotFoundResult>(await controller.Delete(Guid.Empty));
         }
@@ -42,7 +42,7 @@ namespace PersonalBudget.Tests
         public async Task GetPostPutDelete_WithInvalidModelState_ReturnsBadRequestObjectResult()
         {
             // Arrange
-            var controller = new EntityController<MockEntity>(_unitOfWorkMock.Object);
+            var controller = new EntityController<MockEntity>(unitOfWorkMock.Object);
             controller.ModelState.AddModelError("some-error-key", "Some error message");
 
             // Act/Assert
@@ -56,7 +56,7 @@ namespace PersonalBudget.Tests
         public async Task Put_WithMismatchedEntityId_ReturnsBadRequestResult()
         {
             // Arrange
-            var controller = new EntityController<MockEntity>(_unitOfWorkMock.Object);
+            var controller = new EntityController<MockEntity>(unitOfWorkMock.Object);
 
             // Act/Assert
             Assert.IsAssignableFrom<BadRequestResult>(await controller.Put(Guid.Empty, new MockEntity(Guid.NewGuid())));

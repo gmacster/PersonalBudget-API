@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PersonalBudget.Utilities
+namespace PersonalBudget.YNABImporter
 {
     internal static class DictionaryExtensions
     {

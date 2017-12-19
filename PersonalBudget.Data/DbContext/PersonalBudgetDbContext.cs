@@ -2,9 +2,9 @@
 
 using PersonalBudget.Models;
 
-namespace PersonalBudget.Data.DataAccessLayer
+namespace PersonalBudget.Data.DbContext
 {
-    public class PersonalBudgetDbContext : DbContext
+    public class PersonalBudgetDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public PersonalBudgetDbContext(DbContextOptions<PersonalBudgetDbContext> options)
             : base(options)

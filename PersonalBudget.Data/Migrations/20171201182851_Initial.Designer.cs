@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-using PersonalBudget.Data.DataAccessLayer;
+using PersonalBudget.Data.DbContext;
 
 namespace PersonalBudget.Data.Migrations
 {

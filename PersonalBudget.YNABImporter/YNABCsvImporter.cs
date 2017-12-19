@@ -8,7 +8,7 @@ using CsvHelper;
 
 using PersonalBudget.Models;
 
-namespace PersonalBudget.Utilities
+namespace PersonalBudget.YNABImporter
 {
     public sealed class YNABCsvImporter : IImporter
     {

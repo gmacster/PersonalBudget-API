@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalBudget.Data.DataAccessLayer;
+
+using PersonalBudget.Data.DbContext;
 
 namespace PersonalBudget.Data.Extensions
 {
