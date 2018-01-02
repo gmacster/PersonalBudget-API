@@ -12,7 +12,7 @@ using Xunit;
 
 namespace PersonalBudget.Tests
 {
-    public class EntityControllerTests
+    public sealed class EntityControllerTests
     {
         private readonly Mock<IUnitOfWork> unitOfWorkMock;
 
@@ -30,7 +30,7 @@ namespace PersonalBudget.Tests
         public async Task GetAndDelete_WithNoMatch_ReturnsNotFoundResult()
         {
             // Arrange
-            repositoryMock.Setup(r => r.FindAsync(It.IsAny<object[]>())).ReturnsAsync(default(MockEntity));
+            repositoryMock.Setup(r => r.FindAsync(It.IsAny<object[]>())).ReturnsAsync(value: null);
 
             // Act/Assert
             var controller = new EntityController<MockEntity>(unitOfWorkMock.Object);
