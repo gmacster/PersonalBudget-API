@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using PersonalBudget.Models.Interfaces;
 
@@ -16,6 +17,8 @@ namespace PersonalBudget.Models
 
         public Guid BudgetPeriodId { get; set; }
 
+        [Required]
+        [DataType(DataType.Currency)]
         public decimal Target { get; set; }
     }
 }

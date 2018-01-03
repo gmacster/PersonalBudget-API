@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using PersonalBudget.Models.Interfaces;
 
@@ -23,6 +24,7 @@ namespace PersonalBudget.Models
         /// <summary>
         /// Gets or sets the master category name.
         /// </summary>
+        [Required]
         public string Name { get; set; }
     }
 }

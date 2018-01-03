@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using PersonalBudget.Models.Interfaces;
 
@@ -28,11 +29,17 @@ namespace PersonalBudget.Models
         /// <summary>
         /// Gets or sets the category name.
         /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the list of <see cref="Transaction" />s that belong to this category.
         /// </summary>
         public List<Transaction> Transactions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of <see cref="BudgetTarget" />s that belong to this category.
+        /// </summary>
+        public List<BudgetTarget> BudgetTargets { get; set; }
     }
 }
