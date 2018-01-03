@@ -18,7 +18,7 @@ namespace PersonalBudget.Tests
 
             var validationResults = ValidationHelpers.ValidateModel(account);
 
-            Assert.True(validationResults.Count == 1);
+            Assert.Single(validationResults);
         }
     }
 }
