@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"mocha": "^4.1.0",
+		"node-rest-client": "^3.1.0"
+	}
+}
