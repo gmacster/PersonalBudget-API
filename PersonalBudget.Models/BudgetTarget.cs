@@ -23,7 +23,7 @@ namespace PersonalBudget.Models
         /// <summary>
         /// Gets or sets the primary key of the associated <see cref="Category"/> instance.
         /// </summary>
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="BudgetPeriod"/> this <see cref="BudgetTarget"/> is associated to.

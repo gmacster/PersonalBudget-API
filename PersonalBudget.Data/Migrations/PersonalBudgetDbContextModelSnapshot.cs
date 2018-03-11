@@ -5,18 +5,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-
-using System;
-
 using PersonalBudget.Data.DbContext;
+using System;
 
 namespace PersonalBudget.Data.Migrations
 {
     [DbContext(typeof(PersonalBudgetDbContext))]
-    [Migration("20171209012628_AddBudgetPeriodAndBudgetTarget")]
-    partial class AddBudgetPeriodAndBudgetTarget
+    partial class PersonalBudgetDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,11 +25,29 @@ namespace PersonalBudget.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<Guid>("BudgetId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BudgetId");
+
                     b.ToTable("Account");
+                });
+
+            modelBuilder.Entity("PersonalBudget.Models.Budget", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Budget");
                 });
 
             modelBuilder.Entity("PersonalBudget.Models.BudgetPeriod", b =>
@@ -40,11 +55,15 @@ namespace PersonalBudget.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid>("BudgetId");
+
                     b.Property<DateTime>("PeriodEndDate");
 
                     b.Property<DateTime>("PeriodStartDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BudgetId");
 
                     b.ToTable("BudgetPeriod");
                 });
@@ -56,7 +75,7 @@ namespace PersonalBudget.Data.Migrations
 
                     b.Property<Guid>("BudgetPeriodId");
 
-                    b.Property<Guid>("CategoryId");
+                    b.Property<Guid?>("CategoryId");
 
                     b.Property<decimal>("Target");
 
@@ -76,7 +95,8 @@ namespace PersonalBudget.Data.Migrations
 
                     b.Property<Guid>("MasterCategoryId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -90,9 +110,14 @@ namespace PersonalBudget.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<Guid>("BudgetId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BudgetId");
 
                     b.ToTable("MasterCategory");
                 });
@@ -104,7 +129,7 @@ namespace PersonalBudget.Data.Migrations
 
                     b.Property<Guid>("AccountId");
 
-                    b.Property<Guid>("CategoryId");
+                    b.Property<Guid?>("CategoryId");
 
                     b.Property<DateTime>("Date");
 
@@ -114,7 +139,8 @@ namespace PersonalBudget.Data.Migrations
 
                     b.Property<decimal>("Outflow");
 
-                    b.Property<string>("Payee");
+                    b.Property<string>("Payee")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -125,6 +151,22 @@ namespace PersonalBudget.Data.Migrations
                     b.ToTable("Transaction");
                 });
 
+            modelBuilder.Entity("PersonalBudget.Models.Account", b =>
+                {
+                    b.HasOne("PersonalBudget.Models.Budget", "Budget")
+                        .WithMany("Accounts")
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PersonalBudget.Models.BudgetPeriod", b =>
+                {
+                    b.HasOne("PersonalBudget.Models.Budget", "Budget")
+                        .WithMany("BudgetPeriods")
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("PersonalBudget.Models.BudgetTarget", b =>
                 {
                     b.HasOne("PersonalBudget.Models.BudgetPeriod", "BudgetPeriod")
@@ -133,9 +175,8 @@ namespace PersonalBudget.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PersonalBudget.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("BudgetTargets")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("PersonalBudget.Models.Category", b =>
@@ -143,6 +184,14 @@ namespace PersonalBudget.Data.Migrations
                     b.HasOne("PersonalBudget.Models.MasterCategory", "MasterCategory")
                         .WithMany("Categories")
                         .HasForeignKey("MasterCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PersonalBudget.Models.MasterCategory", b =>
+                {
+                    b.HasOne("PersonalBudget.Models.Budget", "Budget")
+                        .WithMany("MasterCategories")
+                        .HasForeignKey("BudgetId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -155,8 +204,7 @@ namespace PersonalBudget.Data.Migrations
 
                     b.HasOne("PersonalBudget.Models.Category", "Category")
                         .WithMany("Transactions")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,19 +18,35 @@ namespace PersonalBudget.Data.DbContext
             budget.HasMany(b => b.Accounts).WithOne(a => a.Budget).HasForeignKey(a => a.BudgetId).IsRequired();
             budget.HasMany(b => b.BudgetPeriods).WithOne(p => p.Budget).HasForeignKey(p => p.BudgetId).IsRequired();
 
-            var transactionEntity = modelBuilder.Entity<Transaction>();
-            transactionEntity.HasOne(t => t.Category).WithMany(c => c.Transactions).HasForeignKey(t => t.CategoryId);
-            transactionEntity.HasOne(t => t.Account).WithMany(a => a.Transactions).HasForeignKey(t => t.AccountId).IsRequired();
-
-            modelBuilder.Entity<Category>()
-                .HasOne(c => c.MasterCategory)
-                .WithMany(mc => mc.Categories)
+            modelBuilder.Entity<MasterCategory>()
+                .HasMany(mc => mc.Categories)
+                .WithOne(c => c.MasterCategory)
                 .HasForeignKey(c => c.MasterCategoryId)
                 .IsRequired();
 
-            var budgetTargetEntity = modelBuilder.Entity<BudgetTarget>();
-            budgetTargetEntity.HasOne(t => t.BudgetPeriod).WithMany(p => p.BudgetTargets).HasForeignKey(t => t.BudgetPeriodId).IsRequired();
-            budgetTargetEntity.HasOne(t => t.Category).WithMany(c => c.BudgetTargets).HasForeignKey(t => t.CategoryId).IsRequired();
+            modelBuilder.Entity<Account>()
+                .HasMany(a => a.Transactions)
+                .WithOne(t => t.Account)
+                .HasForeignKey(t => t.AccountId)
+                .IsRequired();
+
+            modelBuilder.Entity<BudgetPeriod>()
+                .HasMany(p => p.BudgetTargets)
+                .WithOne(t => t.BudgetPeriod)
+                .HasForeignKey(t => t.BudgetPeriodId)
+                .IsRequired();
+
+            var categoryEntity = modelBuilder.Entity<Category>();
+
+            categoryEntity.HasMany(c => c.Transactions)
+                .WithOne(t => t.Category)
+                .HasForeignKey(t => t.CategoryId)
+                .IsRequired(false);
+
+            categoryEntity.HasMany(c => c.BudgetTargets)
+                .WithOne(t => t.Category)
+                .HasForeignKey(t => t.CategoryId)
+                .IsRequired(false);
         }
     }
 }
