@@ -8,7 +8,7 @@ namespace PersonalBudget.Models
     /// <summary>
     /// Represents a single transaction.
     /// </summary>
-    public class Transaction : IEntity
+    public sealed class Transaction : IEntity
     {
         /// <summary>
         /// Gets or sets the <see cref="Account" /> for the transaction.
