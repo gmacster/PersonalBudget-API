@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-using PersonalBudget.Data.DataAccessLayer;
+using PersonalBudget.Data.DbContext;
 using PersonalBudget.Data.Extensions;
 
 namespace PersonalBudget

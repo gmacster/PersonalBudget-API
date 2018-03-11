@@ -4,10 +4,9 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-using PersonalBudget.Data.DataAccessLayer;
+using PersonalBudget.Data.DbContext;
 using PersonalBudget.Data.Extensions;
 using PersonalBudget.Models;
-using PersonalBudget.Utilities;
 
 namespace PersonalBudget.YNABImporter
 {

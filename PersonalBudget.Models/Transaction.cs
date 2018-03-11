@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using PersonalBudget.Models.Interfaces;
 
@@ -7,7 +8,7 @@ namespace PersonalBudget.Models
     /// <summary>
     /// Represents a single transaction.
     /// </summary>
-    public class Transaction : IEntity
+    public sealed class Transaction : IEntity
     {
         /// <summary>
         /// Gets or sets the <see cref="Account" /> for the transaction.
@@ -32,6 +33,8 @@ namespace PersonalBudget.Models
         /// <summary>
         /// Gets or sets the date on which the transaction occurred.
         /// </summary>
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         /// <summary>
@@ -47,16 +50,21 @@ namespace PersonalBudget.Models
         /// <summary>
         /// Gets or sets the transaction's inflow amount.
         /// </summary>
+        [Required]
+        [DataType(DataType.Currency)]
         public decimal Inflow { get; set; }
 
         /// <summary>
         /// Gets or sets the transaction's outflow amount.
         /// </summary>
+        [Required]
+        [DataType(DataType.Currency)]
         public decimal Outflow { get; set; }
 
         /// <summary>
         /// Gets or sets the payee.
         /// </summary>
+        [Required]
         public string Payee { get; set; }
     }
 }

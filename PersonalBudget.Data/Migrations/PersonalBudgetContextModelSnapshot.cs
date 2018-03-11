@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using PersonalBudget.Data.DataAccessLayer;
+using PersonalBudget.Data.DbContext;
 using System;
 
 namespace PersonalBudget.Data.Migrations

@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using PersonalBudget.Data.DataAccessLayer;
+
 using System;
+
+using PersonalBudget.Data.DbContext;
 
 namespace PersonalBudget.Data.Migrations
 {

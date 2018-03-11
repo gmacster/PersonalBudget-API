@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace PersonalBudget.Data.DataAccessLayer
+namespace PersonalBudget.Data.DbContext
 {
     public sealed class PersonalBudgetDbContextFactory : IDesignTimeDbContextFactory<PersonalBudgetDbContext>
     {

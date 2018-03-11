@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget", "PersonalBudget\PersonalBudget.csproj", "{3EAC269D-60AE-4BCC-B8B3-054A8C538D42}"
 EndProject
@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget.Models", "Pe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget.Data", "PersonalBudget.Data\PersonalBudget.Data.csproj", "{F695C25B-D63F-4614-B670-BC9093923AFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalBudget.YNABImporter", "PersonalBudget.YNABImporter\PersonalBudget.YNABImporter.csproj", "{E1677932-7F86-4608-9F6F-33823EDE3061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBudget.YNABImporter", "PersonalBudget.YNABImporter\PersonalBudget.YNABImporter.csproj", "{E1677932-7F86-4608-9F6F-33823EDE3061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalBudget.Tests", "PersonalBudget.Tests\PersonalBudget.Tests.csproj", "{1D6E225F-ACA2-4828-901F-BEB475298859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E1677932-7F86-4608-9F6F-33823EDE3061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1677932-7F86-4608-9F6F-33823EDE3061}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1677932-7F86-4608-9F6F-33823EDE3061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D6E225F-ACA2-4828-901F-BEB475298859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6E225F-ACA2-4828-901F-BEB475298859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6E225F-ACA2-4828-901F-BEB475298859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6E225F-ACA2-4828-901F-BEB475298859}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

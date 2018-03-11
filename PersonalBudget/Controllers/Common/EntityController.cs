@@ -28,12 +28,13 @@ namespace PersonalBudget.Controllers.Common
 
             var repository = unitOfWork.GetRepository<T>();
 
-            if (await repository.FindAsync(id) == null)
+            var match = await repository.FindAsync(id);
+            if (match == null)
             {
                 return NotFound();
             }
 
-            repository.Delete(id);
+            repository.Delete(match);
             await unitOfWork.SaveChangesAsync();
 
             return NoContent();
