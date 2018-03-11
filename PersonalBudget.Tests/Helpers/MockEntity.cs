@@ -2,7 +2,7 @@
 
 using PersonalBudget.Models.Interfaces;
 
-namespace PersonalBudget.Tests
+namespace PersonalBudget.Tests.Helpers
 {
     public sealed class MockEntity : IEntity
     {

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 
 using PersonalBudget.Controllers.Common;
+using PersonalBudget.Tests.Helpers;
 
 using Xunit;
 
