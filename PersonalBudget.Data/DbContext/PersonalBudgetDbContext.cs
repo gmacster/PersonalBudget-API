@@ -13,6 +13,11 @@ namespace PersonalBudget.Data.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var budget = modelBuilder.Entity<Budget>();
+            budget.HasMany(b => b.MasterCategories).WithOne(mc => mc.Budget).HasForeignKey(mc => mc.BudgetId).IsRequired();
+            budget.HasMany(b => b.Accounts).WithOne(a => a.Budget).HasForeignKey(a => a.BudgetId).IsRequired();
+            budget.HasMany(b => b.BudgetPeriods).WithOne(p => p.Budget).HasForeignKey(p => p.BudgetId).IsRequired();
+
             var transactionEntity = modelBuilder.Entity<Transaction>();
             transactionEntity.HasOne(t => t.Category).WithMany(c => c.Transactions).HasForeignKey(t => t.CategoryId);
             transactionEntity.HasOne(t => t.Account).WithMany(a => a.Transactions).HasForeignKey(t => t.AccountId).IsRequired();

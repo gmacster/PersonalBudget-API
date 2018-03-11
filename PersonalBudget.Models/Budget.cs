@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using PersonalBudget.Models.Interfaces;
 
@@ -19,5 +20,20 @@ namespace PersonalBudget.Models
         /// </summary>
         [Required]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of <see cref="Account"/> instances that belong to this budget.
+        /// </summary>
+        public IEnumerable<Account> Accounts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of <see cref="BudgetPeriod"/> instances that belong to this budget.
+        /// </summary>
+        public IEnumerable<BudgetPeriod> BudgetPeriods { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of <see cref="MasterCategory"/> instances that belong to this budget.
+        /// </summary>
+        public IEnumerable<MasterCategory> MasterCategories { get; set; }
     }
 }
